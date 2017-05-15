@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        title Star Wars Quotes
+    body
+        h1 Star Wars Quotes
+        ul.quotes
+            for quote in quotes
+                li
+                    span #{quote.name} #{quote.quote}
+            else
+                li Sorry, there are no quotes
+        form(action="/quotes" method="POST")
+            input(type="text" placeholder="name" name="name")
+            input(type="text" placeholder="quote" name="quote")
+            button(type="submit") Submit
