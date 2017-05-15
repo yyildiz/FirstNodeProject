@@ -2,6 +2,7 @@ doctype html
 html
     head
         title Star Wars Quotes
+        script(src="main.js")
     body
         h1 Star Wars Quotes
         ul.quotes
@@ -14,3 +15,8 @@ html
             input(type="text" placeholder="name" name="name")
             input(type="text" placeholder="quote" name="quote")
             button(type="submit") Submit
+            
+        div
+            h2 Replace last quote written by Master Yoda with a quote written by Darth Vadar
+            button(id="update") Dart Vader Invades
+            

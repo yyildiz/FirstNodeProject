@@ -4,6 +4,9 @@ var MongoClient = require('mongodb').MongoClient;
 const app = express();
 
 app.set("view engine", "pug");
+app.set("port", (process.env.PORT || 3000));
+app.use(express.static('public'))
+app.use(bodyParser.json())
 
 var db
 
@@ -31,12 +34,27 @@ app.post('/quotes', (req, res) => {
     })
 });
 
+app.put('/quotes', (req, res) => {
+    db.collection('quotes')
+        .findOneAndUpdate({name: 'Yoda'}, {
+            $set: {
+                name: req.body.name,
+                quote: req.body.quote
+            }
+        }, {
+        sort: {_id: -1},
+        upsert: true
+        }, (err, result) => {
+            if (err) return res.send(err)
+            res.send(result)
+    })
+})
 
 
 MongoClient.connect('mongodb://localhost/testDB', (err, database) => {
   if (err) return console.log(err)
   db = database
-  app.listen(3000, () => {
-    console.log('listening on 3000')
+  app.listen(app.get("port"), () => {
+    console.log('listening on ' + app.get("port"))
   })
 })
